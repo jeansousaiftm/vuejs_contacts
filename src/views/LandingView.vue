@@ -41,22 +41,29 @@
 			</tbody>
 		</table>
 	</div>
+	<confirm-popup ref="confirmPopup"></confirm-popup>
 </template>
 
 <script>
+
+	import ConfirmPopup from '../components/ConfirmPopup.vue'
+
 	export default {
+		components: { ConfirmPopup },
 		methods:{
 			detail(id) {
 				this.$router.push("/detail/" + id);
 			},
-			deleteContact(id) {
-				ContactDataService.destroy(id);
+			async deleteContact(id) {
+				if (await this.$refs.confirmPopup.show()) {			
+					ContactDataService.destroy(id);
+				}
 			}
 		}
 	};
 </script>
 
-<style>	
+<style scoped>	
 	.container{
 		display: flex;
 		flex-wrap: wrap;

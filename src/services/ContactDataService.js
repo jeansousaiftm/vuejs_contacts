@@ -55,6 +55,22 @@ class ContactDataService {
 		
 	}
 	
+	emailExists(contact) {
+		
+		var retorno = false;
+		
+		storage.contacts.forEach(function(c) {
+			if (c !== null) {
+				if (c.id != contact.id && c.email == contact.email) {
+					retorno = true;
+				}
+			}
+		});
+		
+		return retorno;
+		
+	}
+	
 }
 	
 export default new ContactDataService();

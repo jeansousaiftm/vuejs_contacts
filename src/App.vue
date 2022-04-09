@@ -5,7 +5,7 @@
 <template>
 
 	<main>
-		<ul>
+		<ul class="menu">
 			<li><router-link to="/">Home</router-link></li>
 			<li><router-link :to="{ path: '/data/'+ ContactDataService.nextId()}">New</router-link></li>
 		</ul>
@@ -36,7 +36,7 @@
 		transition: 0.4s;
 	}
 	
-	ul {
+	ul.menu {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
@@ -44,11 +44,11 @@
 		background-color: #333;
 	}
 
-	li {
+	.menu li {
 		float: left;
 	}
 
-	li a {
+	.menu li a {
 		display: block;
 		color: white;
 		text-align: center;

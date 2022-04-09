@@ -1,5 +1,6 @@
 <script setup>
 	import ContactDataService from "../services/ContactDataService.js";
+	import ContactValidator from "../validators/ContactValidator.js";
 </script>
 
 <template>
@@ -7,6 +8,12 @@
 	<h1>Contact Detail</h1>
 	<br/>
 	<div class="container_detail">
+		<div v-if="errors.length" class="errors">
+			<b>Please correct the following error(s):</b>
+			<ul>
+				<li v-for="error in errors">{{ error }}</li>
+			</ul>
+		</div>
 		<div>
 			<label>Name: </label>
 			<input type="text" name="name" v-model="contact.name" />
@@ -40,7 +47,8 @@
 		data() {
 		
 			return {
-				contact: null
+				contact: null,
+				errors: []
 			}
 			
 		},
@@ -67,17 +75,30 @@
 				
 				this.contact.image = document.getElementById("image").value;
 				
-				ContactDataService.save(this.contact);
+				this.errors = ContactValidator.validate(this.contact);
 				
-				this.$router.push("/");
+				if (this.errors.length == 0) {
+				
+					ContactDataService.save(this.contact);
+					
+					this.$router.push("/");
+					
+				}
+				
 			}
 		}
 	};
 </script>
 
-<style>
+<style scoped>
 	.container_detail{
 		display: block;
 		min-width: 100%;
 	}
+	.errors {
+		color: red;
+	}
+	.errors ul {
+		background-color: white;
+	}	
 </style>

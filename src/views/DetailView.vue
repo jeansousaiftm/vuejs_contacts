@@ -38,7 +38,7 @@
 	};
 </script>
 
-<style>
+<style scoped>
 	.container_detail{
 		display: block;
 		min-width: 100%;
